@@ -1,0 +1,10 @@
+{
+    "greetings": "Hello, Welcome to the car loan calculator",
+    "askLoanAmount": "What is the amount of your loan?",
+    "askAPR": "What Is you APR? EX. 7% as 7",
+    "askLoanDuration": "How Long is your loan in years?",
+    "paymentAmount": "Your monthly payment amount is",
+    "again": "Do you want to do another calculation? please answer yes, or no.",
+    "invalidNumber": "Please enter a valid number.",
+    "invalidAnswer": "Please enter yes or no"
+  }
