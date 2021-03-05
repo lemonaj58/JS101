@@ -9,6 +9,7 @@ function prompt(string) {
 
 function displayBoard(board) {
 
+
   let regLine = ('     |     |');
   let crossLine = ('-----+-----+-----');
   console.log(`You are ${HUMAN_MARKER}. Computer is ${COMPUTER_MARKER}`);
@@ -23,7 +24,7 @@ function displayBoard(board) {
   console.log(`${regLine}`);
   console.log(`  ${board['7']}  |  ${board['8']}  |  ${board['9']}`);
   console.log(`${regLine}`);
-
+  console.log(`${playerScore} ${computerScore}` )
 }
 function emptySquares(board) {
   return Object.keys(board).filter(key => board[key] === INITIAL_MARKER);
@@ -135,18 +136,12 @@ function putPrefixesInArray(returnedArray, ending, word) {
   return returnedArray;
 }
 
-function keepScore() {
-  let scoreBoard = {player: 0, computer: 0};
-  if (someoneWon(board)) {
-    if (detectWinner(board) === 'Player') {
-      scoreBoard['player'] += 1
-    } else {
-      scoreBoard['player'] += 1
-    }
-
-  }
-  console.log(scoreBoard);
+function initializeScoreBoard() {
+  let score = {playerScore: 0, computerScore: 0};
+  return score;
 }
+
+initializeScoreBoard();
 
 while (true) {
   let board = initializeBoard();
