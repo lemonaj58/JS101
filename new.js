@@ -1,23 +1,20 @@
-/*function substrings(string) {
-  let substringArray = string.split('');
-  let newStringArray = [];
-  for ( let index = 0; index < string.length; index += 1) {
-    console.log(substringArray[index]);
-    for (let index2 = 0; index2 < string.length; index2 += 1) {
-      if (index2 < index) {
-        continue;
-      } else if (substringArray[index] === substringArray[index2]) {
-        newStringArray.push(substringArray[index]);
-      } else {
-        newStringArray.push(newStringArray[newStringArray.length - 1] +
-          substringArray[index2]);
-      }
-    }
+function maxRotation(number) {
+  let stringNumber = number.toString();
+  let length = stringNumber.length;
+  let startingNumber = stringNumber.slice(1, length) + stringNumber[0];
+  let newNumber = '';
+
+  for (let index = 0; index < length; index += 1) {
+    newNumber += startingNumber.slice(0, 1);
+    startingNumber = startingNumber.slice(2, length) + startingNumber[1];
+
+
   }
-  return console.log(newStringArray);
+console.log(Number(newNumber));
 }
 
-substrings('abcde');
-*/
-
-
+maxRotation(735291);          // 321579
+maxRotation(3);               // 3
+maxRotation(35);              // 53
+maxRotation(105);             // 15 -- the leading zero gets dropped
+maxRotation(8703529146);      // 7321609845

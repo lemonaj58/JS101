@@ -1,5 +1,7 @@
 const rsync = require('readline-sync');
 const AMOUNT_OF_SUITES = 4;
+const WINNING_NUMBER = 21;
+const GAME_WINNING_NUMBER = 5;
 const FACE_CARD_VALUES_IN_DECK = {11: 'jack',
   12: 'queen',
   13: 'king',
@@ -66,7 +68,7 @@ function determineCard(randomNumber) {
 }
 
 function bust(total) {
-  return total > 21;
+  return total > WINNING_NUMBER;
 }
 
 function deal(playingDeck, arr) {
@@ -125,11 +127,11 @@ function hitOrStay(playerHand, playingDeck) {
     playerTotal = calculateHand(playerHand);
 
     console.log(calculateHand(playerHand));
-    if (bust(calculateHand(playerHand)) === true) {
+    if (bust(calculateHand(playerHand))) {
       console.log('you went over 21, you lose.');
       break;
     }
-    askHitOrStay();
+    hitOrStay = askHitOrStay();
 
   }
   return playerTotal;
@@ -153,15 +155,17 @@ function displayTotal (hand) {
   console.log(`The total is ${total}`);
 }
 
+function displayWinningConditions() {
+  console.log(`the first person to ${GAME_WINNING_NUMBER} wins the game.`);
+}
+
 //KEEPING SCORE
 
 function keepScore(winner, scoreBoard) {
   if (winner === 'you') {
     scoreBoard.playerScore += 1;
-    return scoreBoard;
   } else {
     scoreBoard.dealerScore += 1;
-    return scoreBoard;
   }
 }
 
@@ -207,18 +211,22 @@ function showDealerHand(dealerHand) {
   }
   console.log(dealerString);
 }
-function pickingWinner(playerTotal, dealerTotal) {
-  let winner;
-  if (dealerTotal > 21) {
+function pickingWinner(playerTotal, dealerTotal, winner) {
+  if (dealerTotal > WINNING_NUMBER) {
     winner = 'you';
   } else if (playerTotal < dealerTotal) {
     winner = 'dealer';
   } else {
     winner = 'you';
   }
+  return winner;
+}
+function displayWinner(winner, playerTotal, dealerTotal) {
   if (winner === 'you') {
     console.log(`the dealers total is ${dealerTotal} and your total is ${playerTotal}`);
     console.log('You have won the hand!');
+  } else if ((bust(playerTotal))) {
+    console.log('you have busted, dealer wins.');
   } else {
     console.log(`the dealers total is ${dealerTotal} and your total is ${playerTotal}`);
     console.log('The dealer has won the hand!');
@@ -258,21 +266,26 @@ while (true) {
     let playingDeck = shuffleDeck(deck);
     let playerHand = initializeHand();
     let dealerHand = initializeHand();
+    displayWinningConditions();
     while (true) {
       displayScoreBoard(scoreBoard);
       startDealing(playingDeck, playerHand, dealerHand);
       showPlayerHand(playerHand);
       showDealerHand(dealerHand);
       let playerTotal = hitOrStay(playerHand, playingDeck);
-      clearScreen();
-      if (bust(playerTotal) === true) {
+      if (bust(playerTotal)) {
         winner = 'dealer';
+        clearScreen();
+        showPlayerHand(playerHand);
+        displayWinner(winner, playerTotal);
         break;
       }
+      clearScreen();
       dealerHitOrStay(dealerHand, playingDeck);
       let dealerTotal = calculateHand(dealerHand);
       displayBothHands(playerHand, dealerHand);
-      winner = pickingWinner(playerTotal, dealerTotal);
+      winner = pickingWinner(playerTotal, dealerTotal, winner);
+      displayWinner(winner, playerTotal, dealerTotal);
 
       break;
     }
