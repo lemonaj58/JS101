@@ -1,0 +1,5 @@
+Methods: when object properties have function values
+
+collaborator objects/ collaborators: are objects that help provide state within another object.
+
+object factories: functions that creat and return objects of a particular type.
