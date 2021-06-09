@@ -44,27 +44,27 @@ unputers, so you chould ask wether the inputs can contain non-string
 values, and what you should do with them. in this problem, we wont worry
 about non-string value
 
-5. should i consider letter case when deciding weather a word is a 
+5. should i consider letter case when deciding weather a word is a
 palindrome? again, test cases done show any appropriate examples. the
 interviewer might tell you that the palindrome words should be case
 sensitive: mom is a palindrome but Mom is not one.
 
-6. do i need to return the same object or an entirely new one? this 
+6. do i need to return the same object or an entirely new one? this
 question isnt relevent to our current problem since JS strings are
-immutable and any operation on them will result in a new string. in 
+immutable and any operation on them will result in a new string. in
 general, though, this question is on of the most impoertant and most
-overlooked that you can ask. typically, while solving problems, 
+overlooked that you can ask. typically, while solving problems,
 students make certain assumtions. one assumption they might make is
 return the same object: they often start solving the problem without
-checking weather the assumption is correct. for this reason, the 
+checking weather the assumption is correct. for this reason, the
 student may end up losing 10 -15 minutes struggling with the wrong
 problem
 
 7.always verify your assumptions by looking at the test cases or by
 asking the interviewer. as discussed in the above point, students often
-make addumptions about the problem or the expected output that 
+make addumptions about the problem or the expected output that
 may not be what the interviewer has in mind, that can lead to a waste
-of time pursuing an incorrect or incomplete solution. make sure to 
+of time pursuing an incorrect or incomplete solution. make sure to
 confirm what your assumptions are correct before you proceed to start
 developing your algorithm.
 
@@ -72,7 +72,7 @@ to conclude this part of the PEDAC process, you need to write down what
 inputs and outputs for the problems are, you should also describle the
 rules that you must follow. the rules should ecnapsulate all the explicit
 and implicit requirments in the problem. so, you should identify what the
-explicit requirments are, write them down, and repeat the process for 
+explicit requirments are, write them down, and repeat the process for
 implicit requirments :
 
  input: string
@@ -86,7 +86,8 @@ implicit requirments :
 //          "dad" is.)
 
 //      Implicit requirements:
-//        - if the string is an empty string, the result should be an empty array
+//        - if the string is an empty string,
+ the result should be an empty array
 
 DATA STRUCTURE / ALGORITHM
 
@@ -115,24 +116,30 @@ lets consider another problem.
 test case
 output: new string(since strings cannot be mutated
 
-rules: 
+rules:
     explicit requirments: return all of the palidromes in a new string
     you will say all the palidromes if there are contunious ones
     if it was not a palidrome enter a empty array
-    if it is a empty string return an empty array 
+    if it is a empty string return an empty array
 
 for each starting index from 0 through the next to last index position
   for each substring length from 2 until there are no substrings of that length
-    extract the substring of the indicated length starting at the indicate index position
+    extract the substring of the indicated length
+     starting at the indicate index position
   end of inner loop
 end of outer loop
 
-// - create an empty array called `result` that will contain all required substrings
-// - create a `startingIndex` variable (value `0`) for the starting index of a substring
-// - start a loop that iterates over `startingIndex` from `0` to the length of the string minus 2
+// - create an empty array called `result` that will
+ contain all required substrings
+// - create a `startingIndex` variable (value `0`)
+ for the starting index of a substring
+// - start a loop that iterates over `startingIndex`
+ from `0` to the length of the string minus 2
 //   - create a `numChars` variable (value `2`) for the length of a substring
-//   - start an inner loop that iterates over `numChars` from `2` to `string.length - startingIndex`
-//     - extract a substring of length `numChars` from `string` starting at `startingIndex`
+//   - start an inner loop that iterates over `numChars`
+ from `2` to `string.length - startingIndex`
+//     - extract a substring of length `numChars` from
+ `string` starting at `startingIndex`
 //     - append the extracted substring to the `result` array
 //     - increment the `numChars` variable by `1`
 //   - end the inner loop
@@ -140,7 +147,8 @@ end of outer loop
 // - end the outer loop
 // - return the `result` array
 
-This is what the complete informal pseudocode for this problem is // input: a string
+This is what the complete informal pseudocode for this
+ problem is // input: a string
 // output: an array of substrings
 // rules: palindrome words should be case sensitive, meaning "abBA"
 //        is not a palindrome
@@ -148,12 +156,17 @@ This is what the complete informal pseudocode for this problem is // input: a st
 // Algorithm:
 //  substrings function
 //  =================
-//    - create an empty array called `result` that will contain all required substrings
-//    - create a `startingIndex` variable (value `0`) for the starting index of a substring
-//    - start a loop that iterates over `startingIndex` from `0` to the length of the string minus 2
+//    - create an empty array called `result` that will
+ contain all required substrings
+//    - create a `startingIndex` variable (value `0`)
+ for the starting index of a substring
+//    - start a loop that iterates over `startingIndex`
+ from `0` to the length of the string minus 2
 //      - create a `numChars` variable (value `2`) for the length of a substring
-//      - start an inner loop that iterates over `numChars` from `2` to `string.length - startingIndex`
-//        - extract a substring of length `numChars` from `string` starting at `startingIndex`
+//      - start an inner loop that iterates over `numChars`
+ from `2` to `string.length - startingIndex`
+//        - extract a substring of length `numChars` from
+ `string` starting at `startingIndex`
 //        - append the extracted substring to the `result` array
 //        - increment the `numChars` variable by `1`
 //      - end the inner loop
@@ -177,7 +190,7 @@ This is what the complete informal pseudocode for this problem is // input: a st
 
 TESTING FREQUENTLY
 testing isnt properly part of the PEDAC approach but it is an important
-step that you dont want to omit. test your code early and often while 
+step that you dont want to omit. test your code early and often while
 writing it. for instance, consider the substrings function that we
 did above. when we are writing this code we might have started with
 function substrings(str) {
@@ -186,6 +199,6 @@ function substrings(str) {
   let numChars = 2;
   let endIndex = startingIndex + numChars;
 
-  
+
 }
 */

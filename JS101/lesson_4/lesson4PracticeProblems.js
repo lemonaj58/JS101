@@ -17,19 +17,19 @@ console.log([1, 2, 3].filter(num => 'hi'));
 
 //what is the return value of the following statement? and why?
 
-['ant', 'bear', 'caterpillar'].pop().length()
+  ['ant', 'bear', 'caterpillar'].pop().length();
 
-// the return value is 11, this is because this processes pop first, 
+// the return value is 11, this is because this processes pop first,
 //which it is removing 'caterpillar' then we process the length of
 //what we just popped which is length 11.
 
 // how does Array.prototype.fill work? is it destructive? how can we find out?
-let arr = [1, 2, 3, 4, 5]
+let arr = [1, 2, 3, 4, 5];
 arr.fill(1, 1, 5);
 // this array will retuen [1, 1, 1, 1, 1]; because it is filling from
 //index 1 - 5 it will not creat a new element but just will do what
 // the array already has, also this is a destructive property and will
-// write over the existing array. we can check this in node, by 
+// write over the existing array. we can check this in node, by
 // creating the array, performing fill, then calling the array again.
 
 
@@ -39,18 +39,18 @@ arr.fill(1, 1, 5);
   if (elem.length > 3) {
     return elem;
   }
-})
+});
 
 // [undefined, 'bear']
 // this is because bear fits in the element length. this is 4 characters
 // while ant is only 3 characters
 
-let flintstones = ["fred", "barnet", "wilma", "bettey", "pebbles", "bambam" ]
+let flintstones = ["fred", "barnet", "wilma", "bettey", "pebbles", "bambam" ];
 let flintstoneOrder = {};
 
 flintstones.forEach(name, index => {
   flintstonesOrder[name] = index;
-  
+
 });
 let index = 0;
 let ages = {
@@ -63,11 +63,11 @@ let ages = {
 };
 
 Object.values(ages).forEach(number => {
-  index = number +index;
+  index = number + index;
   return index;
-})
+});
 
-let ages = {
+let ages2 = {
   Herman: 32,
   Lily: 30,
   Grandpa: 5843,
@@ -76,11 +76,11 @@ let ages = {
   Spot: 237
 };
 
-let agesArr = Object.values(ages);
-let currentAge = agesArr[0]
+let agesArr = Object.values(ages2);
+let currentAge = agesArr[0];
 agesArr.forEach(ages => {
-  if(currentAge > ages) {
-  currentAge = ages;
+  if (currentAge > ages) {
+    currentAge = ages;
   }
   return currentAge;
 });

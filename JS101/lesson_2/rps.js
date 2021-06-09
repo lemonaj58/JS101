@@ -1,7 +1,7 @@
 //rockPaperScissors.js
 const rsync = require('readline-sync');
 const VALID_CHOICES = ['rock', 'paper', 'scissors'];
-let playerchoice;
+
 function prompt(message) {
   console.log(`RPS => ${message}`);
 }
