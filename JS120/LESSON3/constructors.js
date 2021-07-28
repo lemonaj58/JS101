@@ -1,16 +1,20 @@
-function Car (make, model, year) {
-  this.make = make;
-  this.model = model;
-  this.year = year;
-  this.started = false;
-  this.start = function() {
-    this.stated = true;
-  };
+/* eslint-disable no-unused-vars */
+/* eslint-disable max-len */
+class Car {
+  constructor(make, model, year) {
+    this.make = make;
+    this.model = model;
+    this.year = year;
+    this.started = false;
+    this.start = function () {
+      this.stated = true;
+    };
 
-  this.stop = function() {
-    this.stated = false;
-  };
-  
+    this.stop = function () {
+      this.stated = false;
+    };
+
+  }
 }
 
 /*
@@ -81,21 +85,23 @@ type. in all other situations it returns newly created object. constructors igno
 
 //constructos more than likely will add up to more arguements to the constructor. for instance our car
 
-function Car1(make, model, year, color, passengers, convertible, mileage) {
-  this.make = make;
-  this.model = model;
-  this.year = year;
-  this.color = color;
-  this.passengers = passengers;
-  this.convertible = convertible;
-  this.mileage = mileage;
-  this.started = false;
+class Car1 {
+  constructor(make, model, year, color, passengers, convertible, mileage) {
+    this.make = make;
+    this.model = model;
+    this.year = year;
+    this.color = color;
+    this.passengers = passengers;
+    this.convertible = convertible;
+    this.mileage = mileage;
+    this.started = false;
 
-  this.drive = function() {
-    this.started = true;
-  };
+    this.drive = function () {
+      this.started = true;
+    };
 
-  // rest of the methods
+    // rest of the methods
+  }
 }
 
 /*
@@ -112,33 +118,37 @@ let civicArgs = {
   passengers: 5,
   convertible: false,
   mileage: 16000
-}
+};
 
 let civic = new Car1(civicArgs);
 //we then need to change our args in car1 (for this example to change them to car2);
 
-function Car2(args) {
-  this.make = args.make;
-  this.model = args.model;
-  this.year = args.year;
-  this.color = args.color;
-  this.passengers = args.passengers;
-  this.convertible = args.convertible;
-  this.mileage = args.mileage;
-  this.started = false;
+class Car2 {
+  constructor(args) {
+    this.make = args.make;
+    this.model = args.model;
+    this.year = args.year;
+    this.color = args.color;
+    this.passengers = args.passengers;
+    this.convertible = args.convertible;
+    this.mileage = args.mileage;
+    this.started = false;
 
-  this.drive = function() {
-    this.started = true;
+    this.drive = function () {
+      this.started = true;
+    };
   }
-};
+}
 
-function car3(args) {
-  Object.assign(this, args);
+class car3 {
+  constructor(args) {
+    Object.assign(this, args);
 
-  this.drive = function() {
-    this.started = true;
-  };
+    this.drive = function () {
+      this.started = true;
+    };
 
+  }
 }
 
 /*
@@ -181,10 +191,12 @@ we can add a constructor call with new as a third way to provide an implicit exe
 
 //what happens if you run the following code and why
 
-function Lizard() {
-  this.scamper = function() {
-    console.log("I'm scampering!");
-  };
+class Lizard {
+  constructor() {
+    this.scamper = function () {
+      console.log("I'm scampering!");
+    };
+  }
 }
 
 let lizzy = Lizard();
@@ -192,6 +204,5 @@ let lizzy = Lizard();
 
 let lizzy1 = new Lizard();
 console.log(lizzy1.scamper);
-
 
 
