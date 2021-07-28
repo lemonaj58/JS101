@@ -44,3 +44,6 @@ binds this to a specific object when the function or method is called
 
 method execution context We learned earlier that when you call a method that belongs to an object,
  the execution context inside that method call is the object used to call the method
+
+pseudo-classical: also known as constructor/prototype pattern, just another way to do class or cunstructors
+we use constructor function and prototype object to create objects and provide common methods for those objects

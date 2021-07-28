@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 //function createPet(animal, name) {
 //  return {
 //    animal,
@@ -22,7 +23,7 @@
 //neptune.sleep(); // I am sleeping
 //neptune.wake();  // I am awake
 const PetPrototype = {
-    init(animal, name) {
+  init(animal, name) {
     this.animal = animal;
     this.name = name;
     return this;
@@ -35,7 +36,7 @@ const PetPrototype = {
     console.log('I am awake');
   },
 
-}
+};
 
 let pudding = Object.create(PetPrototype).init("Cat", "Pudding");
 console.log(`I am a ${pudding.animal}. My name is ${pudding.name}.`);

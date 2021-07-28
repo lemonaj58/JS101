@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 //OLOO PATTERN
 
 /*
@@ -27,7 +28,7 @@ car1.start();
 /*
 calling start and stop on the car1 object changes the state of car1 even though those methods
 dont belong to car1. that shouldnt come as surprise since we're using car1 as the execution
-context for the calls. when we call these methods this is set to car1 so the methods change 
+context for the calls. when we call these methods this is set to car1 so the methods change
 the started property in car1
 
 one way we can automate the make model year properties are the init method
@@ -50,6 +51,7 @@ let carPrototype1 = {
 };
 
 let car2 = Object.create(carPrototype1).init('toyota', 'corolla', 2016);
+console.log(car2);
 
 /*
 you can use both factory functions and the OLOO pattern to bulk creat objects of the same
