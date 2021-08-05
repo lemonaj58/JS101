@@ -201,6 +201,10 @@ class Game {
     });
   }
 
+  /**
+   * this is for the human move.
+   * @return {} return the human move marking on the board.
+   */
   humanMoves() {
     while (true) {
       let validChoices = this.board.unusedSquare();
@@ -223,13 +227,14 @@ class Game {
     this.board.markSquare(this.computer.move, this.computer.marker);
   }
 
+
   play() {
     this.displayWelcomeMEssage();
     while (true) {
       this.board.displayBoard();
       this.humanMoves();
       console.clear();
-      if (this.boardIsFull()) break;
+      if (this.boardIsFull() || this.someoneWon()) break;
       this.computerMoves();
       this.board.displayBoard();
       if (this.boardIsFull() || this.someoneWon()) break;
