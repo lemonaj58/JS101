@@ -40,6 +40,36 @@ const VALUE_OF_CARDS = {
   K: 10,
 };
 
+class Deck {
+  constructor() {
+
+  }
+
+  //used to iterate through all 52 cards in random making a shuffled deck.
+  static shuffleDeck() {
+    let deckArray = [];
+    while (deckArray.length !== 52) {
+      let randomNumber = Math.floor(Math.random() * 13);
+      let choices = Object.keys(deckObj);
+      if (deckObj[choices[randomNumber]] > 0) {
+        deckArray.push(choices[randomNumber]);
+        deckObj[choices[randomNumber]] -= 1;
+      }
+    }
+
+    return deckArray;
+  }
+  //resets deck so next time the deck is used,
+  //all of the cards have 4 copies for each suit.
+  static resetDeck() {
+    let cards = Object.keys(deckObj);
+    cards.forEach(card => {
+      deckObj[card] = 4;
+    });
+
+  }
+
+}
 
 //going to use the players for the dealer and human
 class Players {
@@ -47,12 +77,7 @@ class Players {
     this.money = 5;
     this.hand = [];
   }
-  //pops the last card in the deck and pushes it into the certain players hand.
-  hit(deck) {
-    let nextCard = deck[deck.length - 1];
-    this.hand.push(nextCard);
-    deck.pop();
-  }
+
   //calculate total of hand, while hasAce() will make sure that
   //if a player has an ace, it will calculate that correctly.
   total() {
@@ -61,7 +86,7 @@ class Players {
       total += VALUE_OF_CARDS[card];
 
     });
-    if (this.hasAce(total)) {
+    if (this.hasAce()) {
       let aceArray = this.hand.filter(card => card === 'A');
 
       while (total > 21) {
@@ -75,7 +100,7 @@ class Players {
   }
 
   hasAce(total) {
-    return (this.hand.includes('A') && total > BUSTED_VALUE);
+    return total > BUSTED_VALUE;
   }
 
 
@@ -117,24 +142,34 @@ class Dealer extends Players {
   deal() {
     let counter = 0;
     while (counter < 2) {
-      this.human.hand.push(this.currentDeck[this.currentDeck.length - 1]);
-      this.currentDeck.pop();
-      this.dealer.hand.push(this.currentDeck[this.currentDeck.length - 1]);
-      this.currentDeck.pop();
+      this.human.hand.push(this.currentDeck.pop());
+      this.dealer.hand.push(this.currentDeck.pop());
       counter += 1;
     }
   }
 
   nextCard() {
-    let length = this.currentDeck.length - 1;
-    this.human.hand.push(this.currentDeck[length]);
-    this.currentDeck.pop();
+    let nextCard = this.currentDeck.pop();
+    console.log(nextCard);
+    if (nextCard) this.human.hand.push(nextCard);
+    else {
+      this.currentDeck = Deck.shuffleDeck();
+      Deck.resetDeck();
+      nextCard = this.currentDeck.pop();
+      this.human.hand.push(nextCard);
+    }
   }
 
   nextCardDealer() {
-    let length = this.currentDeck.length - 1;
-    this.dealer.hand.push(this.currentDeck[length]);
-    this.currentDeck.pop();
+    let nextCard = this.currentDeck.pop();
+    console.log(nextCard);
+    if (nextCard) this.dealer.hand.push(nextCard);
+    else {
+      this.currentDeck = Deck.shuffleDeck();
+      Deck.resetDeck();
+      nextCard = this.currentDeck.pop();
+      this.dealer.hand.push(nextCard);
+    }
   }
 
 }
@@ -161,36 +196,6 @@ class Human extends Players {
   }
 }
 
-class Deck {
-  constructor() {
-
-  }
-
-  //used to iterate through all 52 cards in random making a shuffled deck.
-  shuffleDeck() {
-    let deckArray = [];
-    while (deckArray.length !== 52) {
-      let randomNumber = Math.floor(Math.random() * 13);
-      let choices = Object.keys(deckObj);
-      if (deckObj[choices[randomNumber]] > 0) {
-        deckArray.push(choices[randomNumber]);
-        deckObj[choices[randomNumber]] -= 1;
-      }
-    }
-
-    return deckArray;
-  }
-  //resets deck so next time the deck is used,
-  //all of the cards have 4 copies for each suit.
-  resetDeck() {
-    let cards = Object.keys(deckObj);
-    cards.forEach(card => {
-      deckObj[card] = 4;
-    });
-
-  }
-
-}
 
 class TwentyOne {
   constructor() {
@@ -200,6 +205,11 @@ class TwentyOne {
     //this will be our deck array, where we will have the top cards
     //on the botttom while our this.deck will perform the functions on it.
     this.currentDeck = [];
+  }
+
+  shuffleDeck() {
+    this.currentDeck = Deck.shuffleDeck();
+    Deck.resetDeck();
   }
 
   displayWelcomeMessage() {
@@ -238,7 +248,7 @@ class TwentyOne {
       this.dealer.nextCard.call(this);
       this.displayHandsWhileHitting();
 
-      if (this.human.isBusted()) break;
+      //if (this.human.isBusted()) break;
 
     }
   }
@@ -281,10 +291,6 @@ class TwentyOne {
     }
   }
 
-  shuffleDeck() {
-    this.currentDeck = this.deck.shuffleDeck();
-    this.deck.resetDeck();
-  }
 
   displayEnding() {
     this.displayFinalHands();
