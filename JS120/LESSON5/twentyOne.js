@@ -86,7 +86,7 @@ class Players {
       total += VALUE_OF_CARDS[card];
 
     });
-    if (this.hasAce()) {
+    if (this.hasAce(total)) {
       let aceArray = this.hand.filter(card => card === 'A');
 
       while (total > 21) {
@@ -150,7 +150,6 @@ class Dealer extends Players {
 
   nextCard() {
     let nextCard = this.currentDeck.pop();
-    console.log(nextCard);
     if (nextCard) this.human.hand.push(nextCard);
     else {
       this.currentDeck = Deck.shuffleDeck();
@@ -162,7 +161,6 @@ class Dealer extends Players {
 
   nextCardDealer() {
     let nextCard = this.currentDeck.pop();
-    console.log(nextCard);
     if (nextCard) this.dealer.hand.push(nextCard);
     else {
       this.currentDeck = Deck.shuffleDeck();
@@ -248,7 +246,7 @@ class TwentyOne {
       this.dealer.nextCard.call(this);
       this.displayHandsWhileHitting();
 
-      //if (this.human.isBusted()) break;
+      if (this.human.isBusted()) break;
 
     }
   }
