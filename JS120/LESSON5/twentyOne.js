@@ -90,10 +90,11 @@ class Players {
       let aceArray = this.hand.filter(card => card === 'A');
 
       while (total > 21) {
+        if (aceArray.length === 0) break;
+
         total -= ACE_VALUE_SET_TO_ONE;
         aceArray.pop();
 
-        if (aceArray.length === 0) break;
       }
     }
     return total;
@@ -246,7 +247,10 @@ class TwentyOne {
       this.dealer.nextCard.call(this);
       this.displayHandsWhileHitting();
 
-      if (this.human.isBusted()) break;
+      if (this.human.isBusted()) {
+        console.clear();
+        break;
+      }
 
     }
   }
@@ -323,9 +327,10 @@ class TwentyOne {
         this.dealer.deal.call(this);
         this.displayHands();
         this.humanHitOrStay();
+
         if (this.human.isBusted()) break;
-        this.dealerPlay();
         console.clear();
+        this.dealerPlay();
         break;
       }
       this.displayEnding();
