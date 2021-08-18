@@ -1,21 +1,54 @@
 Methods: when object properties have function values
 
-collaborator objects/ collaborators: are objects that help provide state within another object.
+encapsulation: bundling data with (operations)functions that are relevant to the data
+
+public interface: object expose data and behaviors (public interface)
+
+collaborator objects/ collaborators: are objects that help provide state within another 
+object.
 
 object factories: functions that creat and return objects of a particular type.
 
 MEMBER ACCESS NOTATION: dot notation for objects member access notation requires
 valid variable names
 
+for/in will return all properties in all prototypes
+
+
+The difference is that Object.keys returns an array of enumerable properties 
+while Object.getOwnPropertyNames returns all properties regardless if they’re
+ enumerable or no
+
+one way to check if there is a property in an object"false" in myObject
 
 computer member access notation: bracket notation for objects member access notation
 can be computed on the fly, any expressiong between the brackets gets
 evaluated as a string and used to reference the property
 
-prototypal inheritance: the object that you inherit properties and methods from is called prototype
-the function object.create creats a new object that inherits properties from an existing object.
-it takes an object that is called the prototype object as an arguement and returns a new object that inheritsproperties
-from the prototype object, the newly created object has access to all the properties and methods that the prototype object provides
+prototypal inheritance: the object that you inherit properties and methods from
+ is called prototype
+the function object.create creats a new object that inherits properties from an
+ existing object.
+it takes an object that is called the prototype object as an arguement and returns
+ a new object that inheritsproperties
+from the prototype object, the newly created object has access to all
+ the properties and methods that the prototype object provides
+
+ [[Prototype]] is the prototype in which an object inherits their object functions
+ they inherit
+ can get the [[Prototype]] from object.isPrototypeOf
+ can also set setPrototypeOf(b,a) then will make b have the prototype of the object a
+
+A for/in loop iterates over an object's properties. The iteration includes properties
+ from the objects in its prototype chain. Use hasOwnProperty to skip the prototype properties.
+
+Object.keys returns an object's "own" property keys -- you do not need to use hasOwnProperty.
+
+Object.prototype.propertyIsEnumerable
+enumerable properties is just a way of talking about properties that we can iterate over.
+
+objects are part of a prototype chain. the complete chain in a object would be
+like so, c --> b--> a --> Object.prototype --> null
 
 hoisting: the engine effectivly moves function declarations to the top of the program file,
 in which they are defined, or the top of the function in which they are nested. the result
@@ -27,8 +60,21 @@ prompt = function(word) {
   ...
 };
 
-higher Order functions: a higher order function is a function that has at least one of the following
+first class functions/objects, just refer to using it as a value can be assigned to
+properties or variables. or passed to another function or returned from another function
+
+Higher-order functions are functions that return another function or take another function as an 
+argument. Higher-order functions let the programmer use powerful and flexible abstractions.
+
+higher Order functions: a higher order function is a function
+ that has at least one of the following
 it takes a function as an arguement, or it returns a function.
+
+n Node.js, the global object is the object named global; in the browser, 
+it's the window object. You can investigate this in the node REPL or a browser's console:
+
+Note: don't use isNaN in your code. Use Number.isNaN instead.
+ The bare isNaN function has some odd behavior:
 
 execution contect(context) is a concept that refers to the environment in which a function
 executes in javascript. it most commonly refers to the current value of this keyword.
@@ -38,12 +84,301 @@ explicit: the execution context that you set explicitly.
 implicit: the execution context that javascript sets implicitly when your code doesnt
 provide an explicit context.
 
-setting the execution context is also called binding this, or setting the bind. a binding is
+setting the execution context is also called binding this, or setting the bind.
+ a binding is
 something that ties two things together. in this case it refers to the fact that call
 binds this to a specific object when the function or method is called
 
-method execution context We learned earlier that when you call a method that belongs to an object,
+when we call this in a function and it is in the global scope, it will be the global
+object being called with this. 
+
+if we do the same in strict mode, this is implicitly assigned to undefined instead of
+the global object.
+
+method calls use implicit execution context.
+if we call the method with a object assigned example foo.bar() foo is the context
+if we do let baz = foo.bar in the global. then the global object is the context.
+
+method execution context We learned earlier that when you call a method that belongs
+ to an object,
  the execution context inside that method call is the object used to call the method
 
-pseudo-classical: also known as constructor/prototype pattern, just another way to do class or cunstructors
-we use constructor function and prototype object to create objects and provide common methods for those objects
+bind, it creats a new function with the context binded to it. cannot be reasigned
+whereever you invoke this method.
+
+one way we can get away with some context is to have a function rptthreetimes(func, cont){
+  func.call(context);
+}
+or repeatThreeTimes(john.greetings.bind(john));
+
+foo();
+
+using self = this, and using it instead of this.
+
+always can use arrow functions with context loss, since they always use context around itself.
+
+
+prototypal inheritance: also known as constructor/prototype pattern, just another way to do
+ class or cunstructors
+we use constructor function and prototype object to create objects and provide
+ common methods for those objects also known as constructor inheritance
+
+ pseudo classical inheritance is like writing extends in classes
+
+
+ When using node to execute a file, e.g., node somefile.js, 
+ the surrounding context is the module, not the global object. This can cause a 
+ certain amount of confusion when 
+ working with node in both REPL and file modes. We'll discuss modules in a later course.
+
+
+ let obj = {
+  a: 'hello',
+  b: 'world',
+  foo: function() {
+    [1, 2, 3].forEach(function(number) {
+      console.log(String(number) + ' ' + this.a + ' ' + this.b);
+    });
+  },
+};
+
+obj.foo();
+
+// => 1 undefined undefined
+// => 2 undefined undefined
+// => 3 undefined undefined
+
+That code looks simple enough; it loops over an array and logs some information to the console.
+ The problem, though, is that forEach executes the function expression passed to it, so it gets
+  executed with the global object as context. Once again, this has the wrong value, and the
+   function doesn't do what we want.
+
+   let obj = {
+  a: 'hello',
+  b: 'world',
+  foo: function() {
+    [1, 2, 3].forEach(function(number) {
+      console.log(String(number) + ' ' + this.a + ' ' + this.b);
+    }, this);
+  },
+};
+
+obj.foo();
+
+// => 1 hello world
+// => 2 hello world
+// => 3 hello world
+
+difference between factory functions and constructors are
+we call it with the new keyword 
+we use this to set properties
+we dont supply an explicit return value can but do not usually.
+
+when we return a primitive value it still returns the desired object. but
+if we return a object, it will return obj instead of desired object includes arrays
+
+let civicArgs = {
+  make: 'Honda',
+  model: 'Civic',
+  year: 2016,
+  color: 'black',
+  passengers: 5,
+  convertible: false,
+  mileage: 16000
+}
+
+let civic = new Car(civicArgs);
+
+one way to do a lot of parameters/civicArgs
+in context we can do 
+function Car(args) {
+  object.assign this, args);
+  //All the methods.
+}
+
+instanceof to determine type.
+
+Dog.myPrototype = {
+  bark() {
+    console.log(this.weight > 20 ? 'Woof!' : 'Yip!');
+  }
+};
+
+function Dog(name, breed, weight) {
+  Object.setPrototypeOf(this, Dog.myPrototype);
+  this.name = name;
+  this.breed = breed;
+  this.weight = weight;
+  // this.bark method removed.
+}
+
+instance methods is where static method for the new object created
+static we call as in dog.species = 'canis lupus';
+console.log(Dog.species) // canis lupus
+
+or in a constructor function we can call it like Dog.allDogs.push(this);
+
+let carPrototype = {
+  start: function() {
+    this.started = true;
+  },
+
+  stop: function() {
+    this.started = false;
+  },
+
+  init(make, model, year) {
+    this.make = make;
+    this.model = model;
+    this.year = year;
+    return this;
+  },
+};
+
+OOLO OBJECT LINKING TO OTHER OBJECTS
+
+function Rectangle(length, width) {
+  this.length = length;
+  this.width = width;
+}
+
+Rectangle.prototype.getArea = function() {
+  return this.length * this.width;
+};
+
+Rectangle.prototype.toString = function() {
+  return `[Rectangle ${this.length} x ${this.width}]`;
+};
+
+// rect test code omitted
+
+function Square(size) {
+  Rectangle.call(this, size, size);
+}
+
+Square.prototype = Object.create(Rectangle.prototype);
+Square.prototype.constructor = Square;
+
+Square.prototype.toString = function() {
+  return `[Square ${this.length} x ${this.width}]`;
+};
+
+polymorphism the ability for different object to respond in different ways to the same method
+or method invocation
+
+overriding, is when we have the same method as in the regular class, than the class that the 
+object inherits it from. / polymorphism through inheritance
+
+
+duck typing occurs when object different unrelated types both respond to the same method
+one way to classify or ascribe a type to objects. 
+
+class Chef {
+  prepare(wedding) {
+    this.prepareFood(wedding.guests);
+  }
+
+  prepareFood(guests) {
+    // implementation
+  }
+}
+
+class Decorator {
+  prepare(wedding) {
+    this.decoratePlace(wedding.flowers);
+  }
+
+  decoratePlace(flowers) {
+    // implementation
+  }
+}
+
+class Musician {
+  prepare(wedding) {
+    this.preparePerformance(wedding.songs);
+  }
+
+  preparePerformance(songs) {
+    // implementation
+  }
+}
+
+class Wedding {
+  constructor(guests, flowers, songs) {
+    this.guests = guests;
+    this.flowers = flowers;
+    this.songs = songs;
+  }
+
+  prepare(preparers) {
+    preparers.forEach(preparer => {
+      preparer.prepare(this);
+    });
+  }
+} porper way to duck type
+
+javascript only has single inhertiance, where an object can only have one prototype.
+
+mix ins are methods that can be mixed into a class with a method or more than one method
+
+
+const Swimmable = {
+  swim() {};
+}
+
+class Bird {}
+
+class FlyingBird extends Bird {
+  fly() {}
+}
+
+class Stork extends FlyingBird {}
+
+class Parrot extends FlyingBird {}
+
+class Penguin extends Bird {}
+Object.assign(Penguin.prototype, Swimmable);
+
+class Ostrich extends Bird {}
+Object.assign(Ostrich.prototype, Swimmable);
+
+class Duck extends FlyingBird {}
+Object.assign(Duck.prototype, Swimmable);
+
+class Goose extends FlyingBird {}
+Object.assign(Goose.prototype, Swimmable);
+
+can also do this.
+
+
+const Swimmable = {
+  swim() {}
+}
+
+const Flyable = {
+  fly() {}
+}
+
+class Stork {}
+Object.assign(Stork.prototype, Flyable);
+
+class Parrot {}
+Object.assign(Parrot.prototype, Flyable);
+
+class Penguin {}
+Object.assign(Penguin.prototype, Swimmable);
+
+class Ostrich {}
+Object.assign(Ostrich.prototype, Swimmable);
+
+class Duck {}
+Object.assign(Duck.prototype, Swimmable, Flyable);
+
+class Goose {}
+Object.assign(Goose.prototype, Swimmable, Flyable);
+
+This code defines a Dog class with two methods. The constructor method initializes a new
+ Dog object, which it does by assigning the instance property this.name to the dog's
+  name specified by the argument. The sayHello instance method logs a message to the
+   console that includes the dog's name in place of ${this.name}. The instance method
+    sayHello returns undefined.

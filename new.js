@@ -1,13 +1,36 @@
-/*
-board, where the marks go
-two players
-computer randomly pick players/ maybe calculates move
+let contacts = {
+  list: [],
+  add(name, gender) {
+    let contact = new Contact(name, gender);
+    this.list.push(contact);
+  },
+  males() {
+    return this.list.filter(function(contact) {
+      return contact.gender === 'male';
+    });
+  },
+  females() {
+    return this.list.filter(function(contact) {
+      return contact.gender === 'female';
+    });
+  },
+  filterByName(name) {
+    return this.list.filter(function(contact) {
+      return contact.hasName(name);
+    });
+  },
+};
 
-*/
-
-class Board() {
-  //need to keep track of moves
-  //need to figure out a way to initiate
-  //need to figure out a way to calculate if there is a winer/ board is full
+function Contact(name, gender) {
+  this.name = name;
+  this.gender = gender;
 }
 
+function hasNameproto(name) {
+  return this.list.contact[name] === true;
+
+}
+
+let useThis = hasNameproto.bind(contacts);
+
+Object.assign(Contact.prototype, useThis());

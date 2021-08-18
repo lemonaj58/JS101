@@ -1,8 +1,28 @@
-class cat2 {
-  constructor (name) {
-    this.name = name;
-    console.log("I'm a cat");
-  }
+let Dog = {
+
+};
+
+let maxiPrototype = Object.create(Dog);
+
+maxiPrototype.bark = function () {
+  console.log(`${this.sound}`);
+};
+let maxi = Object.create(maxiPrototype);
+
+maxi.name = 'maxi';
+maxi.sound = 'bark';
+
+
+function BigDog(name, sound) {
+  this.name = name;
+  this.sound = sound;
 }
 
-let kitty = new cat2;
+BigDog.prototype.bark = function () {
+  console.log(this.sound);
+};
+
+let wiggles = new BigDog('wiggles', 'ROUGHH');
+
+maxi.bark();
+wiggles.bark();
