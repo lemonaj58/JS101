@@ -1,36 +1,26 @@
-let contacts = {
-  list: [],
-  add(name, gender) {
-    let contact = new Contact(name, gender);
-    this.list.push(contact);
-  },
-  males() {
-    return this.list.filter(function(contact) {
-      return contact.gender === 'male';
-    });
-  },
-  females() {
-    return this.list.filter(function(contact) {
-      return contact.gender === 'female';
-    });
-  },
-  filterByName(name) {
-    return this.list.filter(function(contact) {
-      return contact.hasName(name);
-    });
-  },
-};
 
-function Contact(name, gender) {
-  this.name = name;
-  this.gender = gender;
+function makeCounter() {
+  let counter = 0;
+
+  const fun1 = function() {
+    counter += 1;
+    return counter;
+  };
+
+  const fun2 = function() {
+    counter += 2;
+    return counter;
+  };
+
+  return [fun1, fun2];
 }
 
-function hasNameproto(name) {
-  return this.list.contact[name] === true;
+let funs = makeCounter();
+let fun1 = funs[0];
+let fun2 = funs[1];
+console.log(fun1()); // 1
+console.log(fun2()); // 3
+console.log(funs);
 
-}
-
-let useThis = hasNameproto.bind(contacts);
-
-Object.assign(Contact.prototype, useThis());
+console.log(fun1()); // 1
+console.log(fun2()); // 3
