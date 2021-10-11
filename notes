@@ -1,3 +1,0 @@
-function findDup takes the arguement array, and we creates a object named seen
-we then iterate through the array with a the imperitive function, a for loop.
-this then 

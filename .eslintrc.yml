@@ -1,5 +1,5 @@
 root: true
-parser:
+parser: babel-eslint
 parserOptions:
   ecmaVersion: 6
   ecmaFeatures:
