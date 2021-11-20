@@ -8,6 +8,33 @@ const HTML_START = `
   <head>
     <meta charset="utf-8">
       <tittle>Loan Calculater</tittle>
+      <style type="text/css">
+      body {
+        background: rgba(250, 250, 250);
+        font-family: sans-serif;
+        color: rgb(50, 50, 50);
+      }
+
+      article {
+        width: 100%;
+        max-width: 40rem;
+        margin: 0 auto;
+        padding: 1rem 2rem;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        text-align: center;
+      }
+
+      table {
+        font-size: 2rem;
+      }
+
+      th {
+        text-align: right;
+      }
+    </style>
   </head>
   <body>
     <article>
@@ -35,23 +62,44 @@ function calculatePayment(loanAmt, length, APR) {
   return payment.toFixed(2);
 }
 
-
-
+// eslint-disable-next-line max-lines-per-function
 function returnLoanInfo(params) {
   let loanAmount = Number(params.get('amount'));
-  let length = Number(params.get('length'));
+  let duration = Number(params.get('duration'));
   let APR = Number(params.get('APR')) / 100;
-  let body = '';
   if (!APR) {
     APR = .05;
   }
-  let monthlyPayment = calculatePayment(loanAmount, length, APR);
+  let monthlyPayment = calculatePayment(loanAmount, duration, APR);
 
-  let content = `<tr><th>Amount:</th><td>$${loanAmount}</td></tr>
-               <tr><th>Duration:</th><td>${length} years</td></tr>
-               <tr><th>APR:</th><td>${APR * 100}%</td></tr>
-               <tr><th>Monthly payment</th><td>$${monthlyPayment}</td></tr>`;
-
+  let content = `<tr>
+                 <th>Amount:</th>
+                   <td>
+                     <a href='/?amount=${loanAmount - 100}&duration=${duration}'>- $100</a>
+                   </td>
+                   <td>$${loanAmount}</td>
+                   <td>
+                     <a href='/?amount=${loanAmount + 100}&duration=${duration}'>+ $100</a>
+                   </td>
+                 </tr>
+                 <tr>
+                   <th>Duration:</th>
+                   <td>
+                     <a href='/?amount=${loanAmount}&duration=${duration - 1}'>- 1 year</a>
+                   </td>
+                   <td>${duration} years</td>
+                   <td>
+                     <a href='/?amount=${loanAmount}&duration=${duration + 1}'>+ 1 year</a>
+                   </td>
+                 </tr>
+                 <tr>
+                   <th>APR:</th>
+                   <td colspan='3'>${APR * 100}%</td>
+                 </tr>
+                 <tr>
+                   <th>Monthly payment:</th>
+                   <td colspan='3'>$${monthlyPayment}</td>
+                 </tr>`;
 
   return `${HTML_START}${content}${HTML_END}`;
 }
