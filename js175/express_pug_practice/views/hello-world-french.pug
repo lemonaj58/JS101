@@ -1,0 +1,36 @@
+doctype html
+
+html
+  head 
+    title Ceci est le titre de la page
+    meta(charset="UTF-8")
+    link(rel="stylesheet", href="/stylesheets/application.css")
+
+body 
+  nav
+      ul
+        li
+          a(href="/english")
+            img.flag(src="/images/flag-of-United-States-of-America.png"
+                     alt="US Flag"
+                     title="Go to US English site")
+        li
+          a.current(href="/french")
+            img.flag(src="/images/flag-of-France.png"
+                     alt="Drapeau de la france"
+                     title="Aller sur le site français")
+        li
+          a(href="/serbian")
+            img.flag(src="/images/flag-of-Serbia.png"
+                     alt="Застава Србије"
+                     title="Идите на српски сајт")
+        li
+          a(href="/german")
+            img.flag(src="/images/flag-of-Germany.png"
+                    alt="Deutsche Flagge"
+                    title="gehe zur deutschen Seite")
+  header 
+    h1 bonjour le monde! 
+  main 
+    p Je vais bientôt être un ingénieur logiciel!
+    img(src="/images/earth.jpg" alt="La planète Terre" title="La planète Terre")
