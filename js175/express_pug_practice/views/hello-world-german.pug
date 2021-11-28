@@ -1,37 +1,11 @@
-doctype html 
+extends layout
 
-html
-  head 
-    title das ist der Seitentitel
-    meta(charset="UTF-8")
-    link(rel="stylesheet" href="/stylesheets/application.css")
+block page_title 
+  title das ist der Seitentitel
 
-  body 
-    nav 
-      ul 
-        li 
-          a(href="/english")
-            img.flag(src="/images/flag-of-United-States-of-America.png"
-                    alt = "US Flag"
-                    title="Go to US English site")
-        li 
-          a(href="french")
-            img.flag(src="images/flag-of-France.png"
-                    alt="Drapeau de la france"
-                    title="Aller sur le site français")
-        li 
-          a(href="serbian")
-            img.flag(src="/images/flag-of-Serbia.png"
-                    alt="Застава Србије"
-                    title="Идите на српски сајт")
-        li
-          a.current(href="/german")
-            img.flag(src="/images/flag-of-Germany.png"
-                    alt="Deutsche Flagge"
-                    title="gehe zur deutschen Seite")
-    header 
-      h1 Hallo Welt
-    main
 
-      p Ich werde bald Software-Ingenieur!
-      img(src="/images/earth.jpg" alt="die Erde" title="die Erde")
+block greeting 
+  h1 Hallo Welt
+block software_engineer
+  p Ich werde bald Software-Ingenieur!
+  img(src="/images/earth.jpg" alt="die Erde" title="die Erde")
