@@ -8,26 +8,14 @@ html(lang=language)
   body 
     nav
         ul 
+         each country in countries 
           li 
-            a(href="/english" class=currentPathClass("/english", currentPath))
-              img.flag(src="/images/flag-of-United-States-of-America.png"
-                      alt = "US Flag"
-                      title="Go to US English site")
-          li 
-            a(href="french" class=currentPathClass("/french", currentPath))
-              img.flag(src="images/flag-of-France.png"
-                      alt="Drapeau de la france"
-                      title="Aller sur le site français")
-          li 
-            a(href="serbian" class=currentPathClass("/serbian", currentPath))
-              img.flag(src="/images/flag-of-Serbia.png"
-                      alt="Застава Србије"
-                      title="Идите на српски сајт")
-          li
-            a(href="/german" class=currentPathClass("/german", currentPath))
-              img.flag(src="/images/flag-of-Germany.png"
-                      alt="Deutsche Flagge"
-                      title="gehe zur deutschen Seite")
+            a(href=country.path
+            class=currentPathClass(country.path,currentPath)
+            )
+              img.flag(src=`/images/${country.flag}`
+              alt=country.alt
+              title=country.title)
     header 
       block greeting 
         h1 Hello World!
