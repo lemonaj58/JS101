@@ -27,6 +27,14 @@ const COUNTRY_DATA = [
     title: "gehe zur deutschen Seite"
   }
 ];
+
+const LANGUAGE_CODES = {
+  english: "en-US",
+  french: "fr-FR",
+  serbian: "sr-Cryl-rs",
+  german: "de-DE"
+};
+
 const morgan = require("morgan");
 
 app.set("views", "./views");
@@ -43,36 +51,28 @@ const showEnglishView = (req, res) => {
   });
 };
 
+
+app.get("/:language", (req, res, next) => {
+  const language = req.params.language;
+  const languageCode = LANGUAGE_CODES[language];
+  if (!languageCode) {
+    next(new Error(`Language not supported: ${language}`));
+  } else {
+    res.render(`hello-world-${language}`, {
+      countries: COUNTRY_DATA,
+      currentPath: req.path,
+      language: languageCode,
+    });
+  }
+});
+
 app.locals.currentPathClass = (path, currentPath) => {
   return path === currentPath ? "current" : "";
 };
 
-app.get("/", showEnglishView);
-
-app.get("/english", showEnglishView);
-
-app.get("/french", (req, res) => {
-  res.render("hello-world-french", {
-    countries: COUNTRY_DATA,
-    currentPath: req.path,
-    language: "fr-FR"
-  });
-});
-
-app.get("/serbian", (req, res) => {
-  res.render("hello-world-serbian", {
-    countries: COUNTRY_DATA,
-    currentPath: req.path,
-    language: "en-sr-Cyrl-rs"
-  });
-});
-
-app.get("/german", (req, res) => {
-  res.render("hello-world-german.pug", {
-    countries: COUNTRY_DATA,
-    currentPath: req.path,
-    language: "de-DE"
-  });
+app.use((err, req, res, _next) => {
+  console.log(err);
+  res.status(404).send(err.message);
 });
 
 app.listen(3000, "localhost", () => {
